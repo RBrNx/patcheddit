@@ -8,12 +8,13 @@ import java.util.Locale;
 import app.morphe.extension.shared.Logger;
 
 /**
- * Stops Imgur's UK geo-block placeholder from being cached in place of the real image.
+ * Stops Imgur's UK geo-block placeholder from being cached in place of the real image or video.
  * <br>
  * From a UK connection Imgur answers every i.imgur.com request - .jpg, .gif and .mp4 urls
- * included - with 200 OK and the same "content blocked" PNG. Glide caches that against the
- * requested url, so the placeholder keeps showing even after switching to a VPN. Reporting the
- * response as unsuccessful makes Glide fail the load instead, and a failed load is never cached.
+ * included - with 200 OK and the same "content blocked" PNG. Glide and ExoPlayer each cache that
+ * against the requested url, so the placeholder keeps showing, and videos keep failing, even after
+ * switching to a VPN. Reporting the response as unsuccessful makes the load fail instead, and a
+ * failed load is never cached.
  * <br>
  * okhttp is minified in Relay, so none of its accessors can be called by name. The headers are
  * found by field type, and the url is read from Response#toString, which cannot be renamed.
