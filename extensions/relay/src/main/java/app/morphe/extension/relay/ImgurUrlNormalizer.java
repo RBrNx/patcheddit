@@ -2,13 +2,19 @@ package app.morphe.extension.relay;
 
 import android.net.Uri;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Rewrites single-item Imgur links so Relay classifies them by probing rather than by extension.
+ * Rewrites Imgur links into forms Relay classifies and loads correctly.
+ * <br>
+ * Album and gallery links lose the title slug Imgur now puts before the id, which Relay would
+ * otherwise send to the album API as part of the id.
  * <br>
  * Relay opens any ".jpg" link as a still image without asking Imgur what it is. Imgur serves a
  * still frame at "&lt;id&gt;.jpg" for videos too, so a video linked as ".jpg" or ".jpeg" showed
@@ -27,6 +33,8 @@ public final class ImgurUrlNormalizer {
 
     // An Imgur media id, optionally with an extension. Excludes site paths such as /upload.
     private static final Pattern MEDIA_SEGMENT = Pattern.compile("([A-Za-z0-9]{5,10})(\\.[A-Za-z0-9]+)?");
+    private static final Pattern ALBUM_ID = Pattern.compile("[A-Za-z0-9]{5,10}");
+    private static final Set<String> ALBUM_PATHS = new HashSet<>(Arrays.asList("a", "gallery"));
 
     public static String normalize(String url) {
         if (url == null) return null;
@@ -34,8 +42,13 @@ public final class ImgurUrlNormalizer {
         Uri uri = Uri.parse(url);
         String host = uri.getHost();
         List<String> segments = uri.getPathSegments();
-        if (host == null || segments.size() != 1) return url;
+        if (host == null) return url;
         if (!host.equals(IMGUR_DOMAIN) && !host.endsWith("." + IMGUR_DOMAIN)) return url;
+
+        if (segments.size() == 2 && ALBUM_PATHS.contains(segments.get(0))) {
+            return stripAlbumSlug(uri, segments);
+        }
+        if (segments.size() != 1) return url;
 
         Matcher matcher = MEDIA_SEGMENT.matcher(segments.get(0));
         if (!matcher.matches()) return url;
@@ -47,6 +60,19 @@ public final class ImgurUrlNormalizer {
         }
 
         return uri.buildUpon().authority(IMGUR_MEDIA_HOST).path("/" + segment).build().toString();
+    }
+
+    // Imgur's album and gallery urls now read /gallery/<title-slug>-<id>, but Relay passes the
+    // whole segment to the album API as the id, which 404s.
+    private static String stripAlbumSlug(Uri uri, List<String> segments) {
+        String segment = segments.get(1);
+        int slugEnd = segment.lastIndexOf('-');
+        if (slugEnd < 0) return uri.toString();
+
+        String id = segment.substring(slugEnd + 1);
+        if (!ALBUM_ID.matcher(id).matches()) return uri.toString();
+
+        return uri.buildUpon().path("/" + segments.get(0) + "/" + id).build().toString();
     }
 
     private static boolean isStillImageExtension(String extension) {
