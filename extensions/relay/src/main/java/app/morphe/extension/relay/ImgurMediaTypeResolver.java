@@ -11,13 +11,13 @@ import java.util.Locale;
 import app.morphe.extension.shared.Logger;
 
 /**
- * Recovers the media type of an Imgur link when Relay's own probe fails.
+ * Decides whether an Imgur link is an image or a video, in place of Relay's own probe.
  * <br>
- * Relay decides whether an Imgur link without a usable extension is an image or a video with
- * HEAD https://imgur.com/&lt;id&gt;.jpg, treating image/jpeg and image/png as images and anything
- * else as a video. imgur.com answers with a 429 on many VPN exit IPs and a 403 in the UK, so
- * those images were opened as broken videos. When the probe did not return media, this asks
- * i.imgur.com instead: its ".mp4" url exists only for videos.
+ * Relay probes HEAD https://imgur.com/&lt;id&gt;.jpg and treats image/jpeg and image/png as
+ * images, anything else as a video. That probe cannot tell the two apart: for a video Imgur
+ * answers with a still frame as image/jpeg. It also fails outright with a 429 on many VPN exit
+ * IPs and a 403 in the UK, which Relay reads as a video. Instead this checks
+ * i.imgur.com/&lt;id&gt;.mp4, which exists only for videos.
  *
  * @noinspection unused
  */
@@ -29,14 +29,12 @@ public final class ImgurMediaTypeResolver {
     private static final int TIMEOUT_MS = 5_000;
 
     public static String resolveContentType(String contentType, Object url) {
-        if (isMediaType(contentType)) return contentType;
-
         try {
             String id = imgurId(url.toString());
             if (id == null) return contentType;
 
             // Relay runs this on its network scheduler; never block the main thread regardless.
-            if (Looper.myLooper() == Looper.getMainLooper()) return IMAGE_TYPE;
+            if (Looper.myLooper() == Looper.getMainLooper()) return contentType;
 
             String resolved = isVideo(id) ? VIDEO_TYPE : IMAGE_TYPE;
             Logger.printDebug(() -> "Imgur probe returned " + contentType + ", resolved " + id + " as " + resolved);
@@ -45,13 +43,6 @@ public final class ImgurMediaTypeResolver {
             Logger.printException(() -> "Could not resolve the Imgur media type", ex);
             return contentType;
         }
-    }
-
-    private static boolean isMediaType(String contentType) {
-        if (contentType == null) return false;
-
-        String type = contentType.toLowerCase(Locale.ROOT);
-        return type.startsWith("image/") || type.startsWith("video/");
     }
 
     private static String imgurId(String url) {
