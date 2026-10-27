@@ -4,31 +4,29 @@ import android.net.Uri;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Rewrites single-item Imgur links into a form Relay classifies and loads correctly.
+ * Rewrites single-item Imgur links so Relay classifies them by probing rather than by extension.
  * <br>
- * Relay only recognises ".jpg" and ".png" as direct images. Anything else on Imgur is probed
- * over imgur.com, and the media url is then built on whatever host the link used. imgur.com is
- * the host that gets rate limited (429) on many VPN exit IPs and geo-blocked (403) in the UK,
- * while i.imgur.com serves the same media. So:
- * <ul>
- *   <li>".jpeg" becomes ".jpg", which Relay loads as an image directly without probing.</li>
- *   <li>A bare imgur.com/&lt;id&gt; link moves to i.imgur.com, so the media and thumbnail urls
- *   Relay builds for it point at the host that works.</li>
- * </ul>
+ * Relay opens any ".jpg" link as a still image without asking Imgur what it is. Imgur serves a
+ * still frame at "&lt;id&gt;.jpg" for videos too, so a video linked as ".jpg" or ".jpeg" showed
+ * as a static image. Dropping the extension sends the link through Relay's type probe instead,
+ * where {@link ImgurMediaTypeResolver} decides between image and video.
+ * <br>
+ * The link also moves from imgur.com to i.imgur.com, because Relay builds the media and thumbnail
+ * urls on the link's own host, and imgur.com is rate limited (429) on many VPN exit IPs and
+ * geo-blocked (403) in the UK while i.imgur.com serves the same media.
  *
  * @noinspection unused
  */
 public final class ImgurUrlNormalizer {
     private static final String IMGUR_DOMAIN = "imgur.com";
     private static final String IMGUR_MEDIA_HOST = "i.imgur.com";
-    private static final String JPEG_EXTENSION = ".jpeg";
-    private static final String JPG_EXTENSION = ".jpg";
 
-    // Imgur media ids, optionally with an extension. Excludes site paths such as /upload.
-    private static final Pattern MEDIA_SEGMENT = Pattern.compile("[A-Za-z0-9]{5,10}(\\.[A-Za-z0-9]+)?");
+    // An Imgur media id, optionally with an extension. Excludes site paths such as /upload.
+    private static final Pattern MEDIA_SEGMENT = Pattern.compile("([A-Za-z0-9]{5,10})(\\.[A-Za-z0-9]+)?");
 
     public static String normalize(String url) {
         if (url == null) return null;
@@ -39,13 +37,20 @@ public final class ImgurUrlNormalizer {
         if (host == null || segments.size() != 1) return url;
         if (!host.equals(IMGUR_DOMAIN) && !host.endsWith("." + IMGUR_DOMAIN)) return url;
 
-        String segment = segments.get(0);
-        if (!MEDIA_SEGMENT.matcher(segment).matches()) return url;
+        Matcher matcher = MEDIA_SEGMENT.matcher(segments.get(0));
+        if (!matcher.matches()) return url;
 
-        if (segment.toLowerCase(Locale.ROOT).endsWith(JPEG_EXTENSION)) {
-            segment = segment.substring(0, segment.length() - JPEG_EXTENSION.length()) + JPG_EXTENSION;
+        String segment = matcher.group(0);
+        String extension = matcher.group(2);
+        if (extension != null && isStillImageExtension(extension)) {
+            segment = matcher.group(1);
         }
 
         return uri.buildUpon().authority(IMGUR_MEDIA_HOST).path("/" + segment).build().toString();
+    }
+
+    private static boolean isStillImageExtension(String extension) {
+        String lower = extension.toLowerCase(Locale.ROOT);
+        return lower.equals(".jpg") || lower.equals(".jpeg");
     }
 }

@@ -11,19 +11,21 @@ private const val NORMALIZER_CLASS_DESCRIPTOR = "Lapp/morphe/extension/relay/Img
 private const val RESOLVER_CLASS_DESCRIPTOR = "Lapp/morphe/extension/relay/ImgurMediaTypeResolver;"
 
 /**
- * Relay only treats ".jpg" and ".png" as direct images. Any other Imgur link is probed over
- * imgur.com - which is rate limited on many VPN exit IPs and geo-blocked in the UK - and when the
- * probe fails Relay assumes a video, so images open as broken videos. Media urls are also built
- * on the link's own host, so bare imgur.com links fail even when they really are videos.
+ * Relay decides whether an Imgur link is an image or a video from its extension, or by probing
+ * imgur.com when there is no ".jpg" or ".png". Both go wrong:
+ * - A video linked as ".jpg" or ".jpeg" opens as a still frame, which Imgur serves at that url.
+ * - The probe is rate limited on many VPN exit IPs and geo-blocked in the UK, and Relay reads a
+ *   failed probe as a video, so images open as broken videos.
+ * - Media urls are built on the link's own host, so bare imgur.com links fail to load.
  *
- * Links are normalised to i.imgur.com, ".jpeg" to ".jpg", and a failed probe falls back to
- * checking i.imgur.com for a video.
+ * Links are moved to i.imgur.com with any ".jpg"/".jpeg" dropped so they are always probed, and
+ * the probe's answer is replaced by a check for the video at i.imgur.com.
  */
 @Suppress("unused")
 val fixImgurLinksPatch = bytecodePatch(
     name = "Fix Imgur links",
-    description = "Fixes Imgur images opening as broken videos, and Imgur videos failing to " +
-        "load, when imgur.com is rate limited or blocked.",
+    description = "Fixes Imgur videos showing as still images or failing to load, and Imgur " +
+        "images opening as broken videos.",
     default = true,
 ) {
     dependsOn(sharedExtensionPatch)
