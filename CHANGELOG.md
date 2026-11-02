@@ -1,3 +1,25 @@
+# [2.1.0](https://github.com/RBrNx/patcheddit/compare/rbrnx-v2.0.3...rbrnx-v2.1.0) (2026-11-02)
+
+
+### Bug Fixes
+
+* **relay-imgur-block:** keep the Imgur placeholder out of the video cache too ([e4ee10c](https://github.com/RBrNx/patcheddit/commit/e4ee10c89b1ac07c0586cd32f58f1978f2edd1cb))
+* **relay-imgur-block:** stop Imgur's UK geo-block placeholder being cached ([ce1cf4d](https://github.com/RBrNx/patcheddit/commit/ce1cf4d565df31cb93e59cb7c59c9e5880907768))
+* **relay-imgur-jpeg:** load bare imgur.com links from i.imgur.com and recover failed type probes ([7f64fc3](https://github.com/RBrNx/patcheddit/commit/7f64fc364da2bf40a86994a54e252c0748b9fe36))
+* **relay-imgur-jpeg:** open Imgur .jpeg links as images, not broken videos ([57038d5](https://github.com/RBrNx/patcheddit/commit/57038d529de567135e2595f125a162534a35b990))
+* **relay-imgur-jpeg:** probe Imgur .jpg/.jpeg links for video instead of trusting the extension ([68e0518](https://github.com/RBrNx/patcheddit/commit/68e051812fa1e88d12dc60d0344d1052fb0df6ad))
+* **relay-imgur-jpeg:** strip the title slug from Imgur album and gallery links ([a31ad12](https://github.com/RBrNx/patcheddit/commit/a31ad12471c8e7c6d37fd5d87dc5c46df6717bac))
+* **relay-inapp-slinks:** hook the post and comment view's own link handler ([86d9ebb](https://github.com/RBrNx/patcheddit/commit/86d9ebbda7e7e622a59c6cc83e1e2be2f77aab0d))
+* **relay-inapp-slinks:** open /s/ bypass fallback in Relay's real WebView ([bc8c5ca](https://github.com/RBrNx/patcheddit/commit/bc8c5ca69380d24a603b760186eaed76525a406b))
+* **relay-local-v2:** rewrite classes whose only OkHttp references are in generic signatures ([4907a90](https://github.com/RBrNx/patcheddit/commit/4907a90e6cb2646fb46384f818c2de8d3215686f))
+* **relay-redgifs:** play Redgifs posts from their real media url so audio works ([450ae63](https://github.com/RBrNx/patcheddit/commit/450ae639ef5e0aa28eafd5652917259348f91d4f))
+* **relay-sidebar:** tolerate a missing accounts_active in the sidebar response ([ee9f12a](https://github.com/RBrNx/patcheddit/commit/ee9f12a957f92880e6c1def250dd0dc1a6cebfe4))
+
+
+### Features
+
+* **relay-inapp-slinks:** hook Relay's in-app link handler for /s/ links ([e8d6dd8](https://github.com/RBrNx/patcheddit/commit/e8d6dd8a0472f8609610cf810e11035f67b15a1e))
+
 ## [2.0.3](https://github.com/wchill/patcheddit/compare/v2.0.2...v2.0.3) (2026-10-30)
 
 

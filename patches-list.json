@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "patches": [
     {
       "name": "Add Boost Search bottom navigation",
@@ -776,6 +776,96 @@
       "options": []
     },
     {
+      "name": "Fix Imgur geo-block cache",
+      "description": "Stops Imgur's UK geo-block placeholder being cached in place of the real image or video, so Imgur media loads once a VPN is switched on.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "free.reddit.news",
+          "name": "Relay for Reddit",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "10.2.40",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        },
+        {
+          "packageName": "reddit.news",
+          "name": "Relay for Reddit Pro",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "10.2.40",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Fix Imgur links",
+      "description": "Fixes Imgur videos showing as still images or failing to load, and Imgur images opening as broken videos.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "free.reddit.news",
+          "name": "Relay for Reddit",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "10.2.40",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        },
+        {
+          "packageName": "reddit.news",
+          "name": "Relay for Reddit Pro",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "10.2.40",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Fix Reddit API lookups",
       "description": "Fixes blocked post, comment, and community info requests.",
       "default": true,
@@ -1161,6 +1251,51 @@
           "targets": [
             {
               "version": null,
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Fix Redgifs audio",
+      "description": "Fixes Redgifs videos playing without sound.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "free.reddit.news",
+          "name": "Relay for Reddit",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "10.2.40",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        },
+        {
+          "packageName": "reddit.news",
+          "name": "Relay for Reddit Pro",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "10.2.40",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -1539,6 +1674,51 @@
           "targets": [
             {
               "version": "1.14.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Fix sidebar",
+      "description": "Fixes the subreddit sidebar failing to load.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "free.reddit.news",
+          "name": "Relay for Reddit",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "10.2.40",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        },
+        {
+          "packageName": "reddit.news",
+          "name": "Relay for Reddit Pro",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "10.2.40",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
