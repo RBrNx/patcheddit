@@ -1,11 +1,8 @@
 {
   "branches": [
-    "main",
-    {
-      "name": "dev",
-      "prerelease": true
-    }
+    "main"
   ],
+  "tagFormat": "rbrnx-v${version}",
   "plugins": [
     [
       "@semantic-release/commit-analyzer", {
@@ -19,8 +16,8 @@
       "@MorpheApp/changelog", {
         "releaseJson": {
           "path": "patches-bundle.json",
-          "downloadUrlTemplate": "https://github.com/${owner}/${repo}/releases/download/v${version}/patches-${version}.mpp",
-          "signatureUrlTemplate": "https://github.com/${owner}/${repo}/releases/download/v${version}/patches-${version}.mpp.asc"
+          "downloadUrlTemplate": "https://github.com/${owner}/${repo}/releases/download/rbrnx-v${version}/patches-${version}.mpp",
+          "signatureUrlTemplate": "https://github.com/${owner}/${repo}/releases/download/rbrnx-v${version}/patches-${version}.mpp.asc"
         }
       }
     ],
@@ -40,7 +37,7 @@
           "patches-bundle.json",
           "patches-list.json"
         ],
-        "message": "chore: Release v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        "message": "chore: Release rbrnx-v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],
     [
@@ -52,13 +49,6 @@
           }
         ],
         "successComment": false
-      }
-    ],
-    [
-      "@saithodev/semantic-release-backmerge",
-      {
-        "backmergeBranches": [{"from": "main", "to": "dev"}],
-        "clearWorkspace": true
       }
     ]
   ]
