@@ -3,8 +3,8 @@ package app.morphe.patches.reddit.customclients.relay.fix.imgurjpeg
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patches.reddit.customclients.relay.RelayCompatible
-import app.morphe.patches.reddit.customclients.relay.misc.extension.sharedExtensionPatch
+import app.morphe.patches.reddit.customclients.AppCompatibility
+import app.morphe.patches.reddit.customclients.ExtensionPatches
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 private const val NORMALIZER_CLASS_DESCRIPTOR = "Lapp/morphe/extension/relay/ImgurUrlNormalizer;"
@@ -28,8 +28,8 @@ val fixImgurLinksPatch = bytecodePatch(
         "images opening as broken videos.",
     default = true,
 ) {
-    dependsOn(sharedExtensionPatch)
-    compatibleWith(*RelayCompatible)
+    dependsOn(ExtensionPatches.Relay)
+    compatibleWith(*AppCompatibility.Relay)
 
     execute {
         // p1 is the link url; it is replaced in place, so no spare register is needed. The method

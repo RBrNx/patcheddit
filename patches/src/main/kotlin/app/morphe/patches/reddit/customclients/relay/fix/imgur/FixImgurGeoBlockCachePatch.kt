@@ -3,8 +3,8 @@ package app.morphe.patches.reddit.customclients.relay.fix.imgur
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patches.reddit.customclients.relay.RelayCompatible
-import app.morphe.patches.reddit.customclients.relay.misc.extension.sharedExtensionPatch
+import app.morphe.patches.reddit.customclients.AppCompatibility
+import app.morphe.patches.reddit.customclients.ExtensionPatches
 import app.morphe.util.getReference
 import app.morphe.util.indexOfFirstInstructionOrThrow
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
@@ -28,8 +28,8 @@ val fixImgurGeoBlockCachePatch = bytecodePatch(
         "image or video, so Imgur media loads once a VPN is switched on.",
     default = true,
 ) {
-    dependsOn(sharedExtensionPatch)
-    compatibleWith(*RelayCompatible)
+    dependsOn(ExtensionPatches.Relay)
+    compatibleWith(*AppCompatibility.Relay)
 
     execute {
         listOf(glideFetcherOnResponseFingerprint, videoDataSourceOpenFingerprint).forEach { fingerprint ->

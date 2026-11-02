@@ -3,7 +3,7 @@ package app.morphe.patches.reddit.customclients.relay.fix.sidebar
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patches.reddit.customclients.relay.RelayCompatible
+import app.morphe.patches.reddit.customclients.AppCompatibility
 import app.morphe.util.findInstructionIndicesReversedOrThrow
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 
@@ -13,7 +13,7 @@ val fixSidebarPatch = bytecodePatch(
     description = "Fixes the subreddit sidebar failing to load.",
     default = true,
 ) {
-    compatibleWith(*RelayCompatible)
+    compatibleWith(*AppCompatibility.Relay)
 
     execute {
         // Both counters are display-only, so a missing one should read as zero rather than

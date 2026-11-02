@@ -1,3 +1,199 @@
+## [2.0.3](https://github.com/wchill/patcheddit/compare/v2.0.2...v2.0.3) (2026-10-30)
+
+
+### Bug Fixes
+
+* Comment loading and gallery loading for all reddit apps ([48cb357](https://github.com/wchill/patcheddit/commit/48cb357ca0bdcaaf7aa9f8a694db479e95a7c0ae))
+
+## [2.0.3-dev.1](https://github.com/wchill/patcheddit/compare/v2.0.2...v2.0.3-dev.1) (2026-10-30)
+
+
+### Bug Fixes
+
+* Comment loading and gallery loading for all reddit apps ([48cb357](https://github.com/wchill/patcheddit/commit/48cb357ca0bdcaaf7aa9f8a694db479e95a7c0ae))
+
+## [2.0.2](https://github.com/wchill/patcheddit/compare/v2.0.1...v2.0.2) (2026-10-30)
+
+
+### Bug Fixes
+
+* Empty responses from reddit no longer throw errors ([a7bb013](https://github.com/wchill/patcheddit/commit/a7bb0131827926c9d3b440da135cd79d917b7c49))
+
+## [2.0.2-dev.1](https://github.com/wchill/patcheddit/compare/v2.0.1...v2.0.2-dev.1) (2026-10-30)
+
+
+### Bug Fixes
+
+* Empty responses from reddit no longer throw errors ([a7bb013](https://github.com/wchill/patcheddit/commit/a7bb0131827926c9d3b440da135cd79d917b7c49))
+
+## [2.0.1](https://github.com/wchill/patcheddit/compare/v2.0.0...v2.0.1) (2026-10-30)
+
+
+### Bug Fixes
+
+* 403 when loading more comments in Boost ([86cb39f](https://github.com/wchill/patcheddit/commit/86cb39fde6f9aaa06a67bc4f2444b30da45149d0))
+* BaconReader redirect uri losing its query parameter name ([3cbf80c](https://github.com/wchill/patcheddit/commit/3cbf80cfbc966625bd199179874ff3f8cc56aec8))
+* Infinity support up to 8.3.4 ([bf1afaf](https://github.com/wchill/patcheddit/commit/bf1afaf50d8c614d7181cdf6cf4a60f67327ed5a))
+* preserve descendant replies when loading more comments ([82c4d3d](https://github.com/wchill/patcheddit/commit/82c4d3d70d0880fd33aa67123df480516ae0feb2))
+* Relay patching broken due to missing extension ([ad9d2c5](https://github.com/wchill/patcheddit/commit/ad9d2c579a0f0fdbbdd85e2894ae57cb1e50c71a))
+* resolve Sync OAuth fingerprints ([c050118](https://github.com/wchill/patcheddit/commit/c050118f67d34c840f86e3b28f12785b111326ef))
+
+## [2.0.1-dev.5](https://github.com/wchill/patcheddit/compare/v2.0.1-dev.4...v2.0.1-dev.5) (2026-10-30)
+
+
+### Bug Fixes
+
+* BaconReader redirect uri losing its query parameter name ([3cbf80c](https://github.com/wchill/patcheddit/commit/3cbf80cfbc966625bd199179874ff3f8cc56aec8))
+
+## [2.0.1-dev.4](https://github.com/wchill/patcheddit/compare/v2.0.1-dev.3...v2.0.1-dev.4) (2026-10-30)
+
+
+### Bug Fixes
+
+* resolve Sync OAuth fingerprints ([c050118](https://github.com/wchill/patcheddit/commit/c050118f67d34c840f86e3b28f12785b111326ef))
+
+## [2.0.1-dev.3](https://github.com/wchill/patcheddit/compare/v2.0.1-dev.2...v2.0.1-dev.3) (2026-10-30)
+
+
+### Bug Fixes
+
+* preserve descendant replies when loading more comments ([82c4d3d](https://github.com/wchill/patcheddit/commit/82c4d3d70d0880fd33aa67123df480516ae0feb2))
+
+## [2.0.1-dev.2](https://github.com/wchill/patcheddit/compare/v2.0.1-dev.1...v2.0.1-dev.2) (2026-10-30)
+
+
+### Bug Fixes
+
+* 403 when loading more comments in Boost ([86cb39f](https://github.com/wchill/patcheddit/commit/86cb39fde6f9aaa06a67bc4f2444b30da45149d0))
+
+## [2.0.1-dev.1](https://github.com/wchill/patcheddit/compare/v2.0.0...v2.0.1-dev.1) (2026-10-28)
+
+
+### Bug Fixes
+
+* Infinity support up to 8.3.4 ([bf1afaf](https://github.com/wchill/patcheddit/commit/bf1afaf50d8c614d7181cdf6cf4a60f67327ed5a))
+* Relay patching broken due to missing extension ([ad9d2c5](https://github.com/wchill/patcheddit/commit/ad9d2c579a0f0fdbbdd85e2894ae57cb1e50c71a))
+
+# [2.0.0](https://github.com/wchill/patcheddit/compare/v1.4.0...v2.0.0) (2026-10-28)
+
+
+### Bug Fixes
+
+* Clean up OAuth token import/export ([3749e21](https://github.com/wchill/patcheddit/commit/3749e214e05d04d086c99f01041b602b9ee46e54))
+* Navigation patch no longer causes subreddit list to pop up twice ([da658a1](https://github.com/wchill/patcheddit/commit/da658a1a2f3966fc1c44faf8477187dc0b0505ae))
+* Remove Continuum and Relay patches ([b4ac952](https://github.com/wchill/patcheddit/commit/b4ac952ea9efc06577b22db6c8b573308236b63c))
+* Resolve login failure caused by non-English language ([fec2ed5](https://github.com/wchill/patcheddit/commit/fec2ed591fa42fa59fd567059cbaae111bfa6caf))
+* Use shaded copy of Jackson ([5ea1b1e](https://github.com/wchill/patcheddit/commit/5ea1b1e8d2eac4abbc397a7a16875d12bbd41c79))
+
+
+### Features
+
+* Add CrashLogPatch from morphe-patches-library as a dependency and expose it in app settings ([0b2d4be](https://github.com/wchill/patcheddit/commit/0b2d4be869d632508e18476f028d9033741711ff))
+* Add OAuth token export + remove reskinned settings menus ([9a7aca3](https://github.com/wchill/patcheddit/commit/9a7aca3d187441da9de80b75344fa3303ffcc22b))
+* Add patch to fix scrolling on user profiles ([75e4cc9](https://github.com/wchill/patcheddit/commit/75e4cc9d318193bcdcc29a635dee8ad228f11c58))
+* Add patch to log exceptions to file ([d572890](https://github.com/wchill/patcheddit/commit/d5728903682e734a985290e8bda3d1d8c5d4ef9a))
+* Boost 1.14.1 support ([1b17fe0](https://github.com/wchill/patcheddit/commit/1b17fe06970465247d989d510bc837ff6788aa3e))
+* **boost:** port patch changes from brealorg ([e1ad2bf](https://github.com/wchill/patcheddit/commit/e1ad2bf6bf7e45b59e8ccce8fffa6906d8859aa2))
+* **boost:** sync upstream patches for Morphe 2.0 ([625f6d6](https://github.com/wchill/patcheddit/commit/625f6d66c7c093fe76b73d19ce6820604dea20d8))
+* Support Boost 1.14.0 ([6ced72b](https://github.com/wchill/patcheddit/commit/6ced72b3a8adc43424ae3960eed3a85a3610cfe6))
+
+
+### BREAKING CHANGES
+
+* Uses morphe-patcher 2.x, and many obsolete patches have
+been removed. Existing patches have been reworked. This version may not
+be fully functional yet.
+
+# [2.0.0-dev.9](https://github.com/wchill/patcheddit/compare/v2.0.0-dev.8...v2.0.0-dev.9) (2026-10-28)
+
+
+### Bug Fixes
+
+* Navigation patch no longer causes subreddit list to pop up twice ([da658a1](https://github.com/wchill/patcheddit/commit/da658a1a2f3966fc1c44faf8477187dc0b0505ae))
+
+# [2.0.0-dev.8](https://github.com/wchill/patcheddit/compare/v2.0.0-dev.7...v2.0.0-dev.8) (2026-10-27)
+
+
+### Features
+
+* Add patch to fix scrolling on user profiles ([75e4cc9](https://github.com/wchill/patcheddit/commit/75e4cc9d318193bcdcc29a635dee8ad228f11c58))
+
+# [2.0.0-dev.7](https://github.com/wchill/patcheddit/compare/v2.0.0-dev.6...v2.0.0-dev.7) (2026-10-27)
+
+
+### Bug Fixes
+
+* Clean up OAuth token import/export ([3749e21](https://github.com/wchill/patcheddit/commit/3749e214e05d04d086c99f01041b602b9ee46e54))
+
+# [2.0.0-dev.6](https://github.com/wchill/patcheddit/compare/v2.0.0-dev.5...v2.0.0-dev.6) (2026-10-27)
+
+
+### Bug Fixes
+
+* Use shaded copy of Jackson ([5ea1b1e](https://github.com/wchill/patcheddit/commit/5ea1b1e8d2eac4abbc397a7a16875d12bbd41c79))
+
+# [2.0.0-dev.5](https://github.com/wchill/patcheddit/compare/v2.0.0-dev.4...v2.0.0-dev.5) (2026-10-26)
+
+
+### Features
+
+* Add CrashLogPatch from morphe-patches-library as a dependency and expose it in app settings ([0b2d4be](https://github.com/wchill/patcheddit/commit/0b2d4be869d632508e18476f028d9033741711ff))
+
+# [2.0.0-dev.4](https://github.com/wchill/patcheddit/compare/v2.0.0-dev.3...v2.0.0-dev.4) (2026-10-26)
+
+
+### Features
+
+* Add patch to log exceptions to file ([d572890](https://github.com/wchill/patcheddit/commit/d5728903682e734a985290e8bda3d1d8c5d4ef9a))
+
+# [2.0.0-dev.3](https://github.com/wchill/patcheddit/compare/v2.0.0-dev.2...v2.0.0-dev.3) (2026-10-26)
+
+
+### Features
+
+* Add OAuth token export + remove reskinned settings menus ([9a7aca3](https://github.com/wchill/patcheddit/commit/9a7aca3d187441da9de80b75344fa3303ffcc22b))
+
+# [2.0.0-dev.2](https://github.com/wchill/patcheddit/compare/v2.0.0-dev.1...v2.0.0-dev.2) (2026-10-26)
+
+
+### Features
+
+* Boost 1.14.1 support ([1b17fe0](https://github.com/wchill/patcheddit/commit/1b17fe06970465247d989d510bc837ff6788aa3e))
+
+# [2.0.0-dev.1](https://github.com/wchill/patcheddit/compare/v1.5.0-dev.1...v2.0.0-dev.1) (2026-10-26)
+
+
+### Features
+
+* Support Boost 1.14.0 ([6ced72b](https://github.com/wchill/patcheddit/commit/6ced72b3a8adc43424ae3960eed3a85a3610cfe6))
+
+
+### BREAKING CHANGES
+
+* Uses morphe-patcher 2.x, and many obsolete patches have
+been removed. Existing patches have been reworked. This version may not
+be fully functional yet.
+
+# [1.5.0-dev.1](https://github.com/wchill/patcheddit/compare/v1.4.1-dev.1...v1.5.0-dev.1) (2026-10-23)
+
+
+### Bug Fixes
+
+* Remove Continuum and Relay patches ([b4ac952](https://github.com/wchill/patcheddit/commit/b4ac952ea9efc06577b22db6c8b573308236b63c))
+
+
+### Features
+
+* **boost:** port patch changes from brealorg ([e1ad2bf](https://github.com/wchill/patcheddit/commit/e1ad2bf6bf7e45b59e8ccce8fffa6906d8859aa2))
+* **boost:** sync upstream patches for Morphe 2.0 ([625f6d6](https://github.com/wchill/patcheddit/commit/625f6d66c7c093fe76b73d19ce6820604dea20d8))
+
+## [1.4.1-dev.1](https://github.com/wchill/patcheddit/compare/v1.4.0...v1.4.1-dev.1) (2026-04-09)
+
+
+### Bug Fixes
+
+* Resolve login failure caused by non-English language ([fec2ed5](https://github.com/wchill/patcheddit/commit/fec2ed591fa42fa59fd567059cbaae111bfa6caf))
+
 # [1.4.0](https://github.com/wchill/patcheddit/compare/v1.3.1...v1.4.0) (2026-04-07)
 
 

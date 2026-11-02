@@ -1,5 +1,7 @@
 group = "app.morphe"
 
+val httpLibraryResources by configurations.creating
+
 patches {
     about {
         name = "Patcheddit"
@@ -13,6 +15,9 @@ patches {
 }
 
 dependencies {
+    httpLibraryResources(libs.okhttp.transport) {
+        isTransitive = false
+    }
     // Used by JsonGenerator.
     implementation(libs.gson)
 
@@ -23,9 +28,33 @@ dependencies {
 
     // Android API stubs defined here.
     compileOnly(project(":patches:stub"))
+
+    testImplementation(kotlin("test-junit"))
+}
+
+val prepareHttpLibraryResources by tasks.registering(Sync::class) {
+    from({ httpLibraryResources.map { zipTree(it) } }) {
+        include("okhttp3/internal/publicsuffix/PublicSuffixDatabase.gz")
+        include("okhttp3/internal/publicsuffix/NOTICE")
+        into("http")
+    }
+    into(layout.buildDirectory.dir("generated/http-resources"))
+    doLast {
+        check(destinationDir.resolve("http/okhttp3/internal/publicsuffix/PublicSuffixDatabase.gz").isFile) {
+            "OkHttp public suffix database was not found"
+        }
+    }
+}
+
+sourceSets.main {
+    resources.srcDir(prepareHttpLibraryResources)
 }
 
 tasks {
+    test {
+        useJUnit()
+    }
+
     register<JavaExec>("checkStringResources") {
         description = "Checks resource strings for invalid formatting"
 

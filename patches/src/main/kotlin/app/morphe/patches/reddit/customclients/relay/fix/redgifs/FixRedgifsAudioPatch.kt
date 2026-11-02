@@ -2,8 +2,8 @@ package app.morphe.patches.reddit.customclients.relay.fix.redgifs
 
 import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
 import app.morphe.patcher.patch.bytecodePatch
-import app.morphe.patches.reddit.customclients.relay.RelayCompatible
-import app.morphe.patches.reddit.customclients.relay.misc.extension.sharedExtensionPatch
+import app.morphe.patches.reddit.customclients.AppCompatibility
+import app.morphe.patches.reddit.customclients.ExtensionPatches
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/relay/RedgifsUrlResolver;"
 
@@ -27,8 +27,8 @@ val fixRedgifsAudioPatch = bytecodePatch(
     description = "Fixes Redgifs videos playing without sound.",
     default = true,
 ) {
-    dependsOn(sharedExtensionPatch)
-    compatibleWith(*RelayCompatible)
+    dependsOn(ExtensionPatches.Relay)
+    compatibleWith(*AppCompatibility.Relay)
 
     execute {
         // p1 is the post's url, p3 the previews Relay built. No spare register is needed.

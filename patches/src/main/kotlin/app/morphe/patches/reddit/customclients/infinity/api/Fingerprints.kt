@@ -8,29 +8,25 @@
 package app.morphe.patches.reddit.customclients.infinity.api
 
 import app.morphe.patcher.Fingerprint
-import app.morphe.patcher.InstructionLocation
-import app.morphe.patcher.OpcodeFilter
-import app.morphe.patcher.OpcodesFilter
 import app.morphe.patcher.literal
 import app.morphe.patcher.methodCall
-import com.android.tools.smali.dexlib2.Opcode
 
-internal val getDefaultUserAgentFingerprint = Fingerprint(
+internal object GetDefaultUserAgentFingerprint : Fingerprint(
     definingClass = EXTENSION_CLASS_NAME,
     name = "getDefaultUserAgent"
 )
 
-internal val getDefaultRedirectUriFingerprint = Fingerprint(
+internal object GetDefaultRedirectUriFingerprint : Fingerprint(
     definingClass = EXTENSION_CLASS_NAME,
     name = "getDefaultRedirectUri"
 )
 
-internal val getDefaultClientIdFingerprint = Fingerprint(
+internal object GetDefaultClientIdFingerprint : Fingerprint(
     definingClass = EXTENSION_CLASS_NAME,
     name = "getDefaultClientId"
 )
 
-internal val clientIdFingerprint = Fingerprint(
+internal object ClientIdFingerprint : Fingerprint(
     filters = listOf(
         methodCall(
             definingClass = "Lml/docilealligator/infinityforreddit/utils/APIUtils;",
@@ -41,41 +37,26 @@ internal val clientIdFingerprint = Fingerprint(
     )
 )
 
-internal fun userAgentFingerprint(versionName: String) = Fingerprint(
-    strings = listOf("android:ml.docilealligator.infinityforreddit:$versionName (by /u/Hostilenemy)")
+internal fun userAgentFingerprint(versionName: String, prefix: String) = Fingerprint(
+    strings = listOf("${prefix}ml.docilealligator.infinityforreddit:$versionName (by /u/Hostilenemy)"),
+    custom = { _, classDef -> !classDef.type.startsWith("Lapp/morphe/") }
 )
 
-internal val redirectUriFingerprint = Fingerprint(
-    definingClass = "Lml/docilealligator",
-    strings = listOf("infinity://localhost")
+internal object RedirectUriFingerprint : Fingerprint(
+    strings = listOf("infinity://localhost"),
+    custom = { _, classDef -> !classDef.type.startsWith("Lapp/morphe/") }
 )
 
-internal val settingsActivityOnBackStackChangedFingerprint = Fingerprint(
-    definingClass = "Lml/docilealligator/infinityforreddit/activities/SettingsActivity;",
-    filters = OpcodesFilter.opcodesToFilters(
-        Opcode.CONST,
-        Opcode.INVOKE_VIRTUAL,
-        Opcode.MOVE_RESULT_OBJECT,
-        Opcode.INSTANCE_OF,
-        Opcode.IF_EQZ,
-        Opcode.CONST,
-        Opcode.INVOKE_VIRTUAL,
-        Opcode.GOTO
-    )
+internal object BillingClientOnServiceConnectedFingerprint : Fingerprint(
+    name = "onServiceConnected",
+    returnType = "V",
+    parameters = listOf("Landroid/content/ComponentName;", "Landroid/os/IBinder;"),
+    strings = listOf("Billing service connected.")
 )
 
-internal val billingClientOnServiceConnectedFingerprint = Fingerprint(
-    strings = listOf("Billing service connected")
-)
-
-internal val infinityStartSubscriptionActivityFingerprint = Fingerprint(
+internal object InfinityStartSubscriptionActivityFingerprint : Fingerprint(
     definingClass = "Lml/docilealligator/infinityforreddit/Infinity;",
-    filters = listOf(
-        methodCall(
-            definingClass = "Landroid/content/Intent;",
-            name = "<init>",
-            opcode = Opcode.INVOKE_DIRECT
-        ),
-        literal(0x10008000)
-    )
+    returnType = "V",
+    strings = listOf("account_name"),
+    filters = listOf(literal(0x10008000))
 )
